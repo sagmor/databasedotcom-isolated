@@ -5,16 +5,15 @@ module Databasedotcom
       CLIENT_OPTIONS = [:client_id,:client_secret]
       AUTHENTICATION_OPTIONS = [:username, :password, :token]
 
+      def Scope.new(options = {})
+        Class.new(self).tap do |scope|
+          scope.options = options
+          scope.client = options[:client]
+        end
+      end
 
       class << self
-        attr_accessor :options, :client
-
-        def new(options = {})
-          Class.new(self).tap do |scope|
-            scope.options = options
-            scope.client = options[:client]
-          end
-        end
+        attr_accessor :options, :client, :binding
 
         def client
           @client ||= Databasedotcom::Client.new(self.options.slice(*CLIENT_OPTIONS)).tap do |client|
@@ -26,8 +25,23 @@ module Databasedotcom
         end
 
         def perform(&block)
+          # self.new.instance_eval(&block)
+          self.binding = block.binding
           (self.class_eval(block.to_source)).call
+          self.binding = nil
+
+          # self.class_eval( &eval(block.to_source) )
+
           self
+        end
+
+        def method_missing(sym,*args)
+          if args.empty?
+            eval(sym.to_s,binding)
+          else
+            context = eval("self",binding)
+            context.send(sym,*args)
+          end
         end
 
         # Search for missing constants on the current list of sobjects if available
