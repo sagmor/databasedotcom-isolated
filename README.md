@@ -1,5 +1,9 @@
 # databasedotcom-isolated
 
+[![Build Status](https://travis-ci.org/sagmor/databasedotcom-isolated.png)](https://travis-ci.org/sagmor/databasedotcom-isolated)
+[![Dependency Status](https://gemnasium.com/sagmor/databasedotcom-isolated.png)](https://gemnasium.com/sagmor/databasedotcom-isolated)
+
+
 This gem let's you perform actions using the databasedotcom gem without having
 to worry about constant pollution and modules namespacing.
 
