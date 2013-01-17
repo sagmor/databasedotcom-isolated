@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Databasedotcom::Isolated::Scope do
   before(:each) do
     @scope = Databasedotcom::Isolated::Scope.new({
-      client: double('client', {
-        list_sobjects: %w{Contact Account}
+      :client => double('client', {
+        :list_sobjects => %w{Contact Account}
       })
     })
   end
@@ -15,17 +15,13 @@ describe Databasedotcom::Isolated::Scope do
 
   it "can connect to diferent clients at hte same time" do
     another_scope = Databasedotcom::Isolated::Scope.new({
-      client: double('client2')
+      :client => double('client2')
     })
 
     expect(@scope.client).not_to be_eql another_scope.client
   end
 
   context "#perform" do
-    before(:each) do
-      # @scope.client.should_receive('list_sobject').and_return(%w{Contact Account})
-    end
-
     it "performs the code on the block" do
       @scope.perform do
         'DO SOMETHING'
