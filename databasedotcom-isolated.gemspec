@@ -8,9 +8,9 @@ Gem::Specification.new do |gem|
   gem.version       = Databasedotcom::Isolated::VERSION
   gem.authors       = ["Seba Gamboa"]
   gem.email         = ["me@sagmor.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.description   = %q{Isolate databasedotcom materialized clases to work with multiple orgs safely}
+  gem.summary       = %q{Isolate databasedotcom materialized clases to work with multiple orgs safely}
+  gem.homepage      = "https://github.com/sagmor/databasedotcom-isolated"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
