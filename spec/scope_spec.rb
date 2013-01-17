@@ -13,6 +13,14 @@ describe Databasedotcom::Isolated::Scope do
     expect(@scope).to be_kind_of Class
   end
 
+  it "can connect to diferent clients at hte same time" do
+    another_scope = Databasedotcom::Isolated::Scope.new({
+      client: double('client2')
+    })
+
+    expect(@scope.client).not_to be_eql another_scope.client
+  end
+
   context "#perform" do
     before(:each) do
       # @scope.client.should_receive('list_sobject').and_return(%w{Contact Account})
