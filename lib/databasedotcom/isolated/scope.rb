@@ -35,6 +35,11 @@ module Databasedotcom
           self
         end
 
+        # Force a class materialization
+        def meterialize(klass)
+          self.const_set(klass, self.client.materialize(klass.to_s))
+        end
+
         def method_missing(sym,*args)
           if args.empty?
             eval(sym.to_s,binding)

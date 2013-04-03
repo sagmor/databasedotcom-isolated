@@ -58,6 +58,15 @@ describe Databasedotcom::Isolated::Scope do
       expect(defined?( Databasedotcom::Isolated::Scope.new::Contact )).to be_nil
     end
 
+    it "materialized classes take precedence over other classes, but need to be materialized manually" do
+      @scope.client.should_receive(:materialize).with('SomeLocalClass').and_return(Class.new)
+
+      @scope.perform do
+        meterialize 'SomeLocalClass'
+        expect(SomeLocalClass).not_to be(::SomeLocalClass)
+      end
+    end
+
 
     it "properly pass outside variables into the block" do
       variable = 1
