@@ -62,7 +62,7 @@ describe Databasedotcom::Isolated::Scope do
       @scope.client.should_receive(:materialize).with('SomeLocalClass').and_return(Class.new)
 
       @scope.perform do
-        meterialize 'SomeLocalClass'
+        materialize 'SomeLocalClass'
         expect(SomeLocalClass).not_to be(::SomeLocalClass)
       end
     end
