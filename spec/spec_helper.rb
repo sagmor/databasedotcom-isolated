@@ -1,4 +1,4 @@
-require 'databasedotcom-isolated'
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
 
-class SomeLocalClass
-end
+require 'databasedotcom-isolated'
